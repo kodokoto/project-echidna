@@ -2,7 +2,7 @@
 
 ## Requirements
 - Python
-- Pipenv
+- Pipenv (`pip install pipenv`)
 
 ## Installation
 
