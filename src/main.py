@@ -1,4 +1,3 @@
-# Example file showing a basic pygame "game loop"
 import pygame
 from graphics.Assets import Assets
 from graphics.WorldGrid import WorldGrid
@@ -11,8 +10,9 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 assets = Assets()
+world = TileMap("src/assets/tilemap.txt")
+grid = WorldGrid(world)
 
 while running:
     # poll for events
@@ -22,14 +22,13 @@ while running:
             running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill("gray")
 
-    # RENDER YOUR GAME HERE
-    world = TileMap("src/assets/tilemap.txt")
-
-    grid = WorldGrid(world)
+    # update() and render() your game objects
+    grid.update()
     grid.render(screen)
 
+    # flip() the display to put your work on screen
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
