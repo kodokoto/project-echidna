@@ -7,12 +7,12 @@
 - Victorian era
 
 ### Inspiration images:
-![inspiration](https://preview.redd.it/haunted-house-interior-photos-v0-tv5juplepap91.png?width=640&crop=smart&auto=webp&s=0cf7f505d6eca3f7035a37ac01561f9eb868ea1a)
+<img src="https://preview.redd.it/haunted-house-interior-photos-v0-tv5juplepap91.png?width=640&crop=smart&auto=webp&s=0cf7f505d6eca3f7035a37ac01561f9eb868ea1a" alt= “” width="100">
 
-![image](https://thumbs.dreamstime.com/z/image-interior-old-abandoned-creepy-house-abandoned-house-interior-128061292.jpg)
+<img src="https://thumbs.dreamstime.com/z/image-interior-old-abandoned-creepy-house-abandoned-house-interior-128061292.jpg" alt= “” width="100">
+<img src="https://i.ytimg.com/vi/oIz2ni5rNS4/maxresdefault.jpg" alt= “” width="100">
+<img src="https://i.pinimg.com/originals/b6/75/db/b675dbd8ea68184438371a46ed7d7193.jpg" alt= “” width="100">
 
-![awd](https://i.ytimg.com/vi/oIz2ni5rNS4/maxresdefault.jpg)
-![awda](https://i.pinimg.com/originals/b6/75/db/b675dbd8ea68184438371a46ed7d7193.jpg)
 
 ## Character Design
 
