@@ -7,6 +7,6 @@ class TileSet:
     def load_image(self, imagePath: str) -> pygame.Surface:
         return pygame.image.load(imagePath)
         
-    def get_tile(self, x, y, width, height) -> pygame.Surface:
-        return self.image.subsurface((x, y, width, height))
+    def get_tile(self, x, y, width, height, flipX=False, flipY=False) -> pygame.Surface:
+        return pygame.transform.flip(self.image.subsurface((x, y, width, height)), flipX, flipY) 
     
