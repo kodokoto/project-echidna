@@ -1,13 +1,17 @@
+import pygame
+from graphics.Visible import Visible
 from systems import coordinates
 from config import screen
-from graphics import Assets
-class Tile: 
 
-    def __init__(self, texture, x, y, solid=True):
-        self.x = x
-        self.y = y
-        self.texture = texture
-        self.solid = solid
+class Tile(Visible): 
+
+    def __init__(self, surface, x, y, isSolid=False):
+        super().__init__(surface, x, y)
+        self.isSolid = isSolid
+        self.width /=4
 
     def render(self):
-        screen.blit(self.texture, coordinates.process(self.x * Assets.ASSET_SIZE/2, self.y * Assets.ASSET_SIZE/2))
+        if self.isSolid:
+            self.surface.set_alpha(100)
+            pygame.draw.rect(screen, (255, 0, 0), self.model, 1)
+        screen.blit(self.surface, (self.x, self.y))

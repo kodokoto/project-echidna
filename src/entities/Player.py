@@ -8,26 +8,47 @@ from config import screen
 class Player(Entity):
     
     def __init__(self, x, y):
-        super().__init__(x, y)
+        super().__init__(Assets.player_right[0], x, y)
         self.animation = Animation(100)
+        # modify bounding box
+        self.width /= 2
+        # self.x - self.width / 2
 
     def update(self):
         _input = pygame.key.get_pressed()
         if _input[pygame.K_w]:
             self.animation.update()
-            self.y -= 2
+            if self.is_colliding_with_tiles():
+                self.y += 10
+                return 
+            else:
+                self.y -= 2
+            
         if _input[pygame.K_s]:
             self.animation.update()
-            self.y += 2
+            if self.is_colliding_with_tiles():
+                self.y -= 10
+                return 
+            else:
+                self.y += 2
         if _input[pygame.K_a]:
             self.animation.update()
-            self.x -= 2
+            if self.is_colliding_with_tiles():
+                self.x += 10
+                return 
+            else:
+                self.x -= 2
         if _input[pygame.K_d]:
             self.animation.update()
-            self.x += 2
+            if self.is_colliding_with_tiles():
+                self.x -= 10
+                return 
+            else:
+                self.x += 2
 
     def render(self):
-        screen.blit(self.get_frame(), coordinates.process(self.x, self.y))
+        screen.blit(self.get_frame(), (self.x, self.y))
+        pygame.draw.rect(screen, (0, 0, 255), self.model, 1)
 
     def get_frame(self):
         _input = pygame.key.get_pressed()

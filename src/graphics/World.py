@@ -5,7 +5,7 @@ class World:
 
     def __init__(self):
         self.tilemap = TileMap('src/assets/tilemap.txt')
-        self.player = Player(0, 0)
+        self.player = Player(10, 10)
 
     def update(self):
         self.player.update()

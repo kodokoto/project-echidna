@@ -15,7 +15,7 @@ class TileMap:
                 row = []
                 # split by comma
                 for x, tile in enumerate(line.split(',')):
-                    row.append(Tile(Assets.tiles[tile], x, y))
+                    row.append(Tile(Assets.tiles[tile], x, y, True if tile == 'wall-fwd-left' else False))
                 _map.append(row)
         return _map
     
