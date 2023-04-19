@@ -18,3 +18,8 @@ class TileMap:
                     row.append(Tile(Assets.tiles[tile], x, y))
                 _map.append(row)
         return _map
+    
+    def render(self):
+        for row in self.tiles:
+            for tile in row:
+                tile.render()

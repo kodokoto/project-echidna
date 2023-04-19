@@ -1,18 +1,13 @@
 import pygame
 from graphics.Assets import Assets
-from graphics.WorldGrid import WorldGrid
+from graphics.World import World
 from graphics.TileMap import TileMap
+from config import screen, clock, running, dt
 
 # pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-running = True
-dt = 0
 
 assets = Assets()
-world = TileMap("src/assets/tilemap.txt")
-grid = WorldGrid(world)
+grid = World()
 
 while running:
     # poll for events
@@ -26,7 +21,7 @@ while running:
 
     # update() and render() your game objects
     grid.update()
-    grid.render(screen)
+    grid.render()
 
     # flip() the display to put your work on screen
     pygame.display.flip()

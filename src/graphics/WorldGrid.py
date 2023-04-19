@@ -17,7 +17,7 @@ class WorldGrid:
             for x in range(len(self.tilemap.tiles[y])):
                 screen.blit(self.tilemap.tiles[y][x].texture, self.center_coordinates(*self.convert_to_isometric_coordinates(x * self.cell_size/2, y * self.cell_size/2), screen))
 
-        # render sprite
+        # render player
         screen.blit(self.player.render(), self.center_coordinates(*self.convert_to_isometric_coordinates(self.player.x, self.player.y), screen))
 
     def convert_to_isometric_coordinates(self, x, y):
