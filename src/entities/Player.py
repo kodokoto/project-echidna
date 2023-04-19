@@ -2,16 +2,14 @@ from entities.Entity import Entity
 import pygame
 from graphics.Animation import Animation
 from graphics.Assets import Assets
+from systems import coordinates
+from config import screen
 
-class Player:
+class Player(Entity):
     
     def __init__(self, x, y):
-        # super().__init__(self, x, y)
-        self.x = x
-        self.y = y
-        # _input = pygame.key.get_pressed()
+        super().__init__(x, y)
         self.animation = Animation(100)
-
 
     def update(self):
         _input = pygame.key.get_pressed()
@@ -29,6 +27,9 @@ class Player:
             self.x += 2
 
     def render(self):
+        screen.blit(self.get_frame(), coordinates.process(self.x, self.y))
+
+    def get_frame(self):
         _input = pygame.key.get_pressed()
         if _input[pygame.K_w]:
             return self.animation.get_current_frame(Assets.player_up)

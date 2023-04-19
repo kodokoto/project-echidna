@@ -1,6 +1,7 @@
+from systems import coordinates
+from config import screen
+from graphics import Assets
 class Tile: 
-    TILE_WIDTH = 32
-    TILE_HEIGHT = 32
 
     def __init__(self, texture, x, y, solid=True):
         self.x = x
@@ -8,3 +9,5 @@ class Tile:
         self.texture = texture
         self.solid = solid
 
+    def render(self):
+        screen.blit(self.texture, coordinates.process(self.x * Assets.ASSET_SIZE/2, self.y * Assets.ASSET_SIZE/2))
