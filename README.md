@@ -17,16 +17,16 @@ pipenv run python src/main.py
 ```
 
 ## TODO:
-- + tilesets
-- + character sprites
-- + charachter animations 
-- + character movement
-- + character collision
-- + game state logic
-- + events
-- + UI (menu, text popups, inventory)
-- + world generation (wave function collapse)
-- + sound design
+- [] tilesets
+- [] character sprites
+- [x] charachter animations 
+- [x] character movement
+- [] character collision
+- [] game state logic
+- [] events
+- [] UI (menu, text popups, inventory)
+- [] world generation (wave function collapse)
+- [] sound design
 
 ## Resources
 - [pygame](https://pygame.readthedocs.io/en/latest/)
