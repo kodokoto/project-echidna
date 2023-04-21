@@ -1,27 +1,22 @@
 import pygame
+from graphics.Visible import Visible
 from systems import coordinates
 from config import screen, debug
-from pygame.sprite import Sprite
-class Tile(Sprite): 
+class Tile(Visible): 
 
     def __init__(self, surface, x, y, name, isSolid=False):
-        print(f'x: {x}, y: {y}')
+        Visible.__init__(self, surface, surface.get_width()/2, surface.get_height()/2, x, y)
         self.name = name
-        self.surface = surface
         self.isSolid = isSolid
-        self.width = self.surface.get_width()/2
-        self.height = self.surface.get_height()/2
-        self.rect = pygame.Rect(x, y, self.width, self.height)
         self.mask = pygame.mask.from_surface(self.surface)
-        self.z = 0
         if debug:
             self.opaque = False
             
     def get_isometric_coordinates(self):
-        return coordinates.isometric_to_cartesian(self.rect.x, self.rect.y)
+        return coordinates.isometric_to_cartesian(self.x, self.y)
     
     def get_projected_coordinates(self):
-        return coordinates.project(self.rect.x - self.width, self.rect.y , self.z)
+        return coordinates.project(self.x - self.width, self.y , self.z)
 
     def update(self):
         self.mask = pygame.mask.from_surface(self.surface)

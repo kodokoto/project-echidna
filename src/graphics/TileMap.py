@@ -21,6 +21,8 @@ class TileMap:
                 # get max width
                 self.width = max(self.width, len(tiles))
                 for x, tile in enumerate(tiles):
+                    if tile == 'none':
+                        continue
                     surface = Assets.tiles[tile]
                     width = surface.get_width()
                     height = surface.get_height()
