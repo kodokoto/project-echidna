@@ -1,7 +1,6 @@
 import pygame
 from entities.Entity import Entity
 from graphics.Assets import Assets
-from graphics.Visible import Visible
 from systems import coordinates
 from config import screen, debug
 import config
@@ -10,10 +9,10 @@ class Player(Entity):
     
     def __init__(self, x, y):
         self.animation_count = 0
-        self.direction = "E"
+        self.direction = "SE"
         self.action = "idle"
         self.animation_speed = 4
-        self.vel = 2
+        self.vel = 0
         
         Entity.__init__(self, self.get_frame(), 1, 1, x, y, 0, True)
         self.mask = None
@@ -26,13 +25,60 @@ class Player(Entity):
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        
+    def jump(self):
+        self.z += self.vel 
+        
+    def fall(self):
+        self.z -= self.vel
+        
+    def die(self):
+        self.reset()
+        
+    def reset(self):
+        self.animation_count = 0
+        self.direction = "SE"
+        self.action = "idle"
+        self.vel = 0
+        self.x, self.y = config.world.midpoint
+        self.z = 0
 
     def update(self):
         self.mask = pygame.mask.from_surface(self.surface)
         _input = pygame.key.get_pressed()
-        
-        self.action = "run"   
         self.old_direction = self.direction
+        
+        # if we arent falling or jumping, we assume we're running
+        if not self.action == "jump" and not self.action == "fall":
+            self.action = "run"
+            self.vel = 2
+        
+        # if we are pressing space, we jump
+        if _input[pygame.K_SPACE] and self.action != "jump" and self.action != "fall":
+            self.action = "jump"
+            self.vel = 4
+        
+        # If we are above 32, we have reached the top of our jump, and we start falling
+        if self.z >= 32:
+            self.action = "fall"
+        
+        # else if we are at ground level, we stop falling and start idling
+        elif self.z <=0 and self.action == "fall" and self.is_on_floor():
+            self.action = "idle"
+            self.direction = "SE"
+            self.vel = 0
+        
+        if not self.is_on_floor():
+            self.action = "fall"
+            self.vel = 6
+            
+        if self.z <= -250:
+            self.die()
+        
+        if self.action == "jump":
+            self.jump()
+        elif self.action == "fall":
+            self.fall()
         
         # 8 directions + idle
         if _input[pygame.K_w] and _input[pygame.K_a]:
@@ -59,17 +105,22 @@ class Player(Entity):
         elif _input[pygame.K_s]:
             self.direction = "SE"
             self.handle_move(self.vel, self.vel)
-        elif _input[pygame.K_SPACE]:
-            self.z += 32
-        else:
-            self.action = "idle"
-        
+        elif not self.action == "jump" and not self.action == "fall":
+            self.action = "idle" 
+            self.direction = "SE"
+            self.vel = 0           
+            
         # increment animation if direction is the same
         # else reset animation
-        if self.old_direction != self.direction:
+        if self.old_direction != self.direction or self.action == "jump" or self.action == "fall":
             self.animation_count = 0
         else:
             self.animation_count += 1
+        
+        print(self.z)
+        print(self.is_on_floor())
+        print(f'velocity: {self.vel}')
+        print(f'action: {self.action}')
             
     def is_colliding(self):
         
@@ -105,9 +156,11 @@ class Player(Entity):
             pygame.draw.rect(screen, (0, 255, 0), self.rect, 1)
                 
     def get_frame(self):
-        if self.action == "run":
-            frames = Assets.player[f'{self.action} {self.direction}']
-        else:
-            frames = Assets.player[f'{self.action}']
+        
+        match self.action:
+            case "run" |  "jump" | "fall": 
+                frames = Assets.player[f'{"run"} {self.direction}']
+            case _:
+                frames = Assets.player[f'{self.action}']
         
         return frames[self.animation_count // self.animation_speed % len(frames)]

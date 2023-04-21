@@ -5,7 +5,7 @@ from config import screen
 from graphics.Visible import Visible
 from systems import coordinates
 
-class TestObject(Entity):
+class TestEntity(Entity):
     
     def __init__(self, x, y, z, isSolid=True):
         Entity.__init__(self, Assets.test_object, Assets.test_object.get_width()/2, Assets.test_object.get_height()/2, x, y, z, isSolid)
