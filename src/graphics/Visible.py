@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from systems import coordinates
+from systems import coordinates
 class Visible(ABC):
 
     def __init__(self, surface, x, y):

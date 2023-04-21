@@ -1,4 +1,3 @@
-from entities.Entity import Entity
 import pygame
 from graphics.Assets import Assets
 from systems import coordinates
