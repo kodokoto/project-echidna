@@ -21,7 +21,7 @@ pipenv run python src/main.py
 - [ ] character sprites
 - [x] charachter animations 
 - [x] character movement
-- [ ] character collision
+- [x] character collision
 - [ ] game state logic
 - [ ] events
 - [ ] UI (menu, text popups, inventory)
