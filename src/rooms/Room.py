@@ -2,11 +2,13 @@ from graphics.Assets import Assets
 
 class Room:
 
-    def __init__(self, name, spawns, tilemap, entities):
+    def __init__(self, name, adj_list, spawns, tilemap, entities):
         self.name = name
+        self.adj_list = adj_list
         self.spawns = spawns
         self.tilemap = tilemap
         self.entities = entities
+
         self.origin = (self.tilemap.width * Assets.ASSET_SIZE, self.tilemap.height * Assets.ASSET_SIZE)
     
     def update(self):

@@ -1,5 +1,5 @@
-wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
-wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
-wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
-wall-fwd-left,floor-lg,none,floor-lg,floor-lg
-wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
+wall-fwd-left,floor-lg,floor-lg,floor-lg,none
+wall-fwd-left,floor-lg,floor-lg,floor-lg,none
+wall-fwd-left,floor-lg,floor-lg,floor-lg,bridge
+wall-fwd-left,floor-lg,none,floor-lg,none
+wall-fwd-left,floor-lg,floor-lg,floor-lg,none
