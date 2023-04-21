@@ -68,10 +68,12 @@ class Player(Entity):
             self.direction = "SE"
             self.vel = 0
         
+        # if we are not on the floor, we are falling
         if not self.is_on_floor():
             self.action = "fall"
             self.vel = 6
-            
+        
+        # if we are below 250, we die 
         if self.z <= -250:
             self.die()
         
