@@ -1,62 +1,45 @@
 from abc import ABC, abstractmethod
-from systems import coordinates
-from systems import coordinates
-class Visible(ABC):
 
-    def __init__(self, surface, x, y):
+import pygame
+from pygame.sprite import Sprite
+class Visible(ABC, Sprite):
+
+    def __init__(self, surface, width, height, x, y, z=0):
         self.surface = surface
-        self.model = self.surface.get_rect()
-        new = coordinates.project(x * self.model.width /2, y * self.model.height /2)
-        self.model.x = new[0]
-        self.model.y = new[1]
+        self.width = width
+        self.height = height
+        self.rect = pygame.Rect(x, y, width, height)
+        self.z = z
 
     @abstractmethod
     def render(self):
         pass
-
-    def is_colliding_with(self, other):
-        return self.model.colliderect(other.model)
+    
+    def collides_with(self, other):
+        if isinstance(other, pygame.Rect):
+            return self.rect.colliderect(other)
+        return self.rect.colliderect(other.rect)
         
     def get_surface(self):
         return self.surface
-        
+            
     @property
     def x(self):
-        return self.model.x
+        return self.rect.x
 
     @x.setter
     def x(self, x):
-        print(f'old: {self.model.x}, new: {x}')
-        self.model.x = x
+        self.rect.x = x
     
     @property
     def y(self):
-        return self.model.y
+        return self.rect.y
 
     @y.setter
     def y(self, y):
-        self.model.y = y
+        self.rect.y = y
         
-    @property
-    def width(self):
-        return self.model.width
-    
-    @width.setter
-    def width(self, width):
-        self.model.width = width
-    
-    @property
-    def height(self):
-        return self.model.height
-    
-    @height.setter
-    def height(self, height):
-        self.model.height = height
-    
     def get_coordinates(self):
-        return self.model.x, self.model.y
-    
-    def set_coordinates(self, x, y):
-        self.model.move(x, y)
+        return self.rect.x, self.rect.y
     
     

@@ -2,13 +2,11 @@ import pygame
 from graphics.TileSet import TileSet
 import os
 
-
 class Assets:
     
     TILE_SIZE = 32
     CHAR_SIZE = 350
     ASSET_SIZE = 64
-
 
     tiles = {}
 
@@ -22,7 +20,6 @@ class Assets:
     
     test_object = None
 
-
     def __init__(self):
         self.tileset = TileSet('src/assets/tileset.png')
         self.character_sprite_front = TileSet('src/assets/CharacterSheet_CharacterFront.png')
@@ -32,23 +29,13 @@ class Assets:
         Assets.player_up, Assets.player_down, Assets.player_left, Assets.player_right, Assets.player_idle = self.load_character_frames()
         Assets.player = self.load_player_frames()
         Assets.test_object = self.load_test_object()
-        print(Assets.test_object)
         
     def load_test_object(self):
-        for i in range(1, 10):
-            print("zoot")
         tile = self.tileset.get_tile(self.TILE_SIZE, self.TILE_SIZE*6, self.TILE_SIZE, self.TILE_SIZE)
         return pygame.transform.scale(tile, (self.ASSET_SIZE, self.ASSET_SIZE))
         
     def load_player_frames(self):
         
-        # folders under assets/player:
-        # idle, run E, run N, run NE, run S, run SE
-        
-        # get every file in each folder and ad them to the sprites dict, using the folder name as the key
-        # for run E, run NE and run SE, flip the image horizontally and name them as run W, run NW and run SW
-        
-        # scale all images to that the width is 64 pixels (the height will be scaled accordingly)
         actions = ["idle", "run E", "run N", "run NE", "run NW", "run SE"]
         
         sprites = {}
@@ -74,9 +61,6 @@ class Assets:
                     sprites[new_action].append(pygame.transform.flip(pygame.image.load(os.path.join(path, image)).convert_alpha(), True, False))
                     
         return sprites
-
-
-        
  
     def load_tiles(self):
         tiles = {
@@ -105,8 +89,6 @@ class Assets:
             for key, value in tiles.items()
         }
 
-
-    
     def load_character_frames(self):
         char_assets = [
             # player_up
@@ -146,6 +128,7 @@ class Assets:
             ]
 
         ]
+        
         return [
             [pygame.transform.scale(char, (self.ASSET_SIZE, self.ASSET_SIZE)) for char in char_assets[0]],
             [pygame.transform.scale(char, (self.ASSET_SIZE, self.ASSET_SIZE)) for char in char_assets[1]],

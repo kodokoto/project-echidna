@@ -1,23 +1,20 @@
 import pygame
 from graphics.Assets import Assets
 from config import screen
+from graphics.Visible import Visible
 from systems import coordinates
 
-class TestObject:
+class TestObject(Visible):
     
     def __init__(self, x, y, z, isSolid=True):
+        Visible.__init__(self, Assets.test_object, Assets.test_object.get_width()/2, Assets.test_object.get_height()/2, x, y, z)
         self.isSolid = isSolid
-        self.SPRITE = Assets.test_object
-        self.width = self.SPRITE.get_width()/2
-        self.height = self.SPRITE.get_height()/2
-        self.rect = pygame.Rect(x, y, self.width, self.height)
-        self.z = z
         
     def get_projected_coordinates(self):
-        return coordinates.project(self.rect.x - self.width, self.rect.y , self.z)
+        return coordinates.project(self.x - self.width, self.y , self.z)
 
     def update(self):
         pass
     
     def render(self):
-        screen.blit(self.SPRITE, self.get_projected_coordinates())
+        screen.blit(self.surface, self.get_projected_coordinates())

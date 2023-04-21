@@ -1,23 +1,19 @@
 import pygame
 from graphics.Assets import Assets
+from graphics.Visible import Visible
 from systems import coordinates
 from config import screen, debug
-from pygame.sprite import Sprite
 import config
-class Player(Sprite):
+
+class Player(Visible):
     
     def __init__(self, x, y):
         self.animation_count = 0
         self.direction = "E"
         self.action = "idle"
         self.animation_speed = 4
-
-        self.width = self.get_frame().get_width()
-        self.height = self.get_frame().get_height()
-        self.rect = pygame.Rect(x, y, 1, 1) #  DO NOT CHANGE THE WIDTH AND HEIGHT
-        self.z = 0
+        Visible.__init__(self, self.get_frame(), 1, 1, x, y)
         self.mask = None
-
     
     def handle_move(self, dx, dy):
         self.move( dx, dy)
@@ -25,15 +21,14 @@ class Player(Sprite):
             self.move(-dx, -dy)
         
     def move(self, dx, dy):
-        self.rect.x += dx
-        self.rect.y += dy
+        self.x += dx
+        self.y += dy
 
     def update(self):
-        self.mask = pygame.mask.from_surface(self.get_frame())
+        self.mask = pygame.mask.from_surface(self.surface)
         _input = pygame.key.get_pressed()
         
-        self.action = "run"
-        
+        self.action = "run"   
         self.old_direction = self.direction
         
         # 8 directions + idle
@@ -66,7 +61,8 @@ class Player(Sprite):
         else:
             self.action = "idle"
         
-        
+        # increment animation if direction is the same
+        # else reset animation
         if self.old_direction != self.direction:
             self.animation_count = 0
         else:
@@ -80,26 +76,28 @@ class Player(Sprite):
         collision_box.center = collision_box.topleft
         
         for entity in config.world.entities + config.world.tilemap.tiles:
-            if pygame.Rect.colliderect(entity.rect, collision_box) and entity.isSolid:
+            if entity.collides_with(collision_box) and entity.isSolid:
                 return True
         return False
     
-    def center_image(self, rect):
-        new_rect = pygame.Rect(*coordinates.project(rect.x, rect.y, self.z), self.width, self.height)
+    def centered_projection(self):
+        width = self.surface.get_width()
+        height = self.surface.get_height()
+        new_rect = pygame.Rect(*coordinates.project(self.x, self.y, self.z), width, height)
         new_rect.midbottom = new_rect.topleft
-        new_rect.y += self.height//4
+        new_rect.y += height//4
         return new_rect
             
     def render(self):
-        sprite = self.get_frame()
-        screen.blit(sprite, self.center_image(self.rect))
+        self.surface = self.get_frame()
+        screen.blit(self.surface, self.centered_projection())
         
         if debug:
             debug_rect = self.rect.copy()
             debug_rect.width = 3
             debug_rect.height = 3
                         
-            pygame.draw.rect(screen, (0, 0, 255), self.center_image(self.rect), 1)
+            pygame.draw.rect(screen, (0, 0, 255), self.centered_projection(), 1)
             pygame.draw.rect(screen, (255, 0, 0), debug_rect, 1)
             pygame.draw.rect(screen, (0, 255, 0), self.rect, 1)
                 

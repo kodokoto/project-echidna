@@ -8,6 +8,5 @@ class Entity(Visible):
         for row in config.world.tilemap.tiles:
             for tile in row:
                 if self.is_colliding_with(tile) and tile.isSolid: 
-                    print('colliding with tile')
                     return True
         return False    
