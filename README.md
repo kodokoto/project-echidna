@@ -19,6 +19,7 @@ pipenv run python src/main.py
 ## TODO:
 - [ ] tilesets
 - [ ] character sprites
+- [x] physics
 - [x] charachter animations 
 - [x] character movement
 - [x] character collision
