@@ -1,18 +1,21 @@
 import pygame
+from entities.Entity import Entity
 from graphics.Assets import Assets
 from graphics.Visible import Visible
 from systems import coordinates
 from config import screen, debug
 import config
 
-class Player(Visible):
+class Player(Entity):
     
     def __init__(self, x, y):
         self.animation_count = 0
         self.direction = "E"
         self.action = "idle"
         self.animation_speed = 4
-        Visible.__init__(self, self.get_frame(), 1, 1, x, y)
+        self.vel = 2
+        
+        Entity.__init__(self, self.get_frame(), 1, 1, x, y, 0, True)
         self.mask = None
     
     def handle_move(self, dx, dy):
@@ -34,28 +37,28 @@ class Player(Visible):
         # 8 directions + idle
         if _input[pygame.K_w] and _input[pygame.K_a]:
             self.direction = "W"
-            self.handle_move(-2, 0)
+            self.handle_move(-self.vel, 0)
         elif _input[pygame.K_w] and _input[pygame.K_d]:
             self.direction = "N"
-            self.handle_move(0, -2)
+            self.handle_move(0, -self.vel)
         elif _input[pygame.K_s] and _input[pygame.K_a]:
             self.direction = "S"
-            self.handle_move(0, 2)
+            self.handle_move(0, self.vel)
         elif _input[pygame.K_s] and _input[pygame.K_d]:
             self.direction = "E"
-            self.handle_move(2, 0)
+            self.handle_move(self.vel, 0)
         elif _input[pygame.K_w]:
             self.direction = "NW"
-            self.handle_move(-2, -2)
+            self.handle_move(-self.vel, -self.vel)
         elif _input[pygame.K_a]:
             self.direction = "SW"
-            self.handle_move(-1, 1)
+            self.handle_move(-self.vel//2, self.vel//2)
         elif _input[pygame.K_d]:
             self.direction = "NE"
-            self.handle_move(1, -1)
+            self.handle_move(self.vel//2, -self.vel//2)
         elif _input[pygame.K_s]:
             self.direction = "SE"
-            self.handle_move(2, 2)
+            self.handle_move(self.vel, self.vel)
         elif _input[pygame.K_SPACE]:
             self.z += 32
         else:
