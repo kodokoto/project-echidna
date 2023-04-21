@@ -6,7 +6,7 @@ class Entity(Visible):
         self.isSolid = isSolid
     
     def is_on_floor(self):
-        return self.rect.collidelist([t.rect for t in config.world.tilemap.tiles]) != -1 and not self.is_below_floor()
+        return self.rect.collidelist([t.rect for t in config.world.room.tiles]) != -1 and not self.is_below_floor()
     
     def is_below_floor(self):
         return self.z < 0

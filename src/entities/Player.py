@@ -40,7 +40,7 @@ class Player(Entity):
         self.direction = "SE"
         self.action = "idle"
         self.vel = 0
-        self.x, self.y = config.world.midpoint
+        self.x, self.y = config.world.room.spawns[0]
         self.z = 0
 
     def update(self):
@@ -131,7 +131,7 @@ class Player(Entity):
         collision_box.height = 16
         collision_box.center = collision_box.topleft
         
-        for entity in config.world.entities + config.world.tilemap.tiles:
+        for entity in config.world.room.entities + config.world.room.tiles:
             if entity.collides_with(collision_box) and entity.isSolid:
                 return True
         return False
