@@ -1,31 +1,29 @@
 import pygame
 from graphics.Assets import Assets
 from graphics.World import World
-from graphics.TileMap import TileMap
-from config import screen, clock, running, dt
+import config
 
 # pygame setup
+config.assets = Assets()
+config.world = World()
 
-assets = Assets()
-grid = World()
-
-while running:
+while config.running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            config.running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("gray")
+    config.screen.fill("black")
 
     # update() and render() your game objects
-    grid.update()
-    grid.render()
+    config.world.update()
+    config.world.render()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
 
-    dt = clock.tick(60) / 1000
+    config.dt = config.clock.tick(60) / 1000
 
 pygame.quit()
