@@ -10,6 +10,7 @@ class Visible(ABC, Sprite):
         self.height = height
         self.rect = pygame.Rect(x, y, width, height)
         self.z = z
+        Sprite.__init__(self)
 
     @abstractmethod
     def render(self):

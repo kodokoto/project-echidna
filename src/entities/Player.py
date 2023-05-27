@@ -118,11 +118,12 @@ class Player(Entity):
             self.animation_count = 0
         else:
             self.animation_count += 1
-        
-        print(self.z)
-        print(self.is_on_floor())
-        print(f'velocity: {self.vel}')
-        print(f'action: {self.action}')
+            
+        # if debug:
+        #     print(self.z)
+        #     print(self.is_on_floor())
+        #     print(f'velocity: {self.vel}')
+        #     print(f'action: {self.action}')
             
     def is_colliding(self):
         

@@ -9,7 +9,7 @@ class World:
     def __init__(self):
         # self.tilemap = TileMap('src/assets/tilemap.txt')
         # self.midpoint = ((Assets.ASSET_SIZE/2)*self.tilemap.width//2, (Assets.ASSET_SIZE/2)*self.tilemap.height//2)
-        self.room = Spawn()
+        self.room = Spawn(True)
         print(self.room.spawns)
         self.player = Player(*self.room.spawns[0])
         # self.entities = [TestEntity(64, 32, 16)]
