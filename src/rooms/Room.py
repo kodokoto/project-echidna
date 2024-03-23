@@ -47,6 +47,10 @@ class Room:
         return [entity for entity in self.entities if isinstance(entity, Teleport)]
     
     def get_teleport_by_direction(self, direction):
+        print(f"Getting teleport in direction {direction}")
+        print(f"Number of teleports: {len(self.entities)}")
+        print(self.name)
+        print([teleport.direction for teleport in self.get_teleports()])
         for teleport in self.get_teleports():
             if teleport.direction == direction:
                 return teleport

@@ -135,12 +135,18 @@ class WorldMap:
             case 'cross':
                 from rooms.Cross import Cross
                 return Cross(adj_rooms, rotate)
+            case 'straight':
+                from rooms.Straight import Straight
+                return Straight(adj_rooms, rotate)
             case 'straight-ns':
                 from rooms.Straight import Straight
                 return Straight(adj_rooms, rotate)
             case 'straight-ew':
                 from rooms.Straight import Straight
                 return Straight(adj_rooms, 1)
+            case 'T': 
+                from rooms.T import T
+                return T(adj_rooms, rotate)
             case 'T-nes':
                 from rooms.T import T
                 return T(adj_rooms, rotate)
@@ -155,28 +161,31 @@ class WorldMap:
                 return T(adj_rooms, rotate)
             case 'dead-end-n':
                 from rooms.DeadEndN import DeadEndN
-                return DeadEnd(adj_rooms, rotate)
+                return DeadEndN(adj_rooms, rotate)
             case 'dead-end-e':
                 from rooms.DeadEndE import DeadEndE
-                return DeadEnd(adj_rooms, rotate)
+                return DeadEndE(adj_rooms, rotate)
             case 'dead-end-s':
                 from rooms.DeadEndS import DeadEndS
-                return DeadEnd(adj_rooms, rotate)
+                return DeadEndS(adj_rooms, rotate)
             case 'dead-end-w':
                 from rooms.DeadEndW import DeadEndW
-                return DeadEnd(adj_rooms, rotate)
+                return DeadEndW(adj_rooms, rotate)
+            case 'corner':
+                from rooms.CornerNW import CornerNW
+                return CornerNW(adj_rooms, rotate)
             case 'corner-ne':
                 from rooms.CornerNE import CornerNE
-                return DeadEnd(adj_rooms, rotate)
+                return CornerNE(adj_rooms, rotate)
             case 'corner-se':
-                from rooms.CornerES import CornerES
-                return DeadEnd(adj_rooms, rotate)
+                from rooms.CornerSE import CornerSE
+                return CornerSE(adj_rooms, rotate)
             case 'corner-sw':
                 from rooms.CornerSW import CornerSW
-                return DeadEnd(adj_rooms, rotate)
+                return CornerSW(adj_rooms, rotate)
             case 'corner-nw':
                 from rooms.CornerNW import CornerNW
-                return DeadEnd(adj_rooms, rotate)
+                return CornerNW(adj_rooms, rotate)
             case default:
                 return Room(name, [], adj_rooms, rotate)
     

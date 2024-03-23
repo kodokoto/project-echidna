@@ -55,7 +55,7 @@ class Player(Entity):
         # if we arent falling or jumping, we assume we're running
         if not self.action == "jump" and not self.action == "fall":
             self.action = "run"
-            self.vel = 2
+            self.vel = 1
         
         # if we are pressing space, we jump
         if _input[pygame.K_SPACE] and self.action != "jump" and self.action != "fall":
