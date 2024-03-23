@@ -17,6 +17,10 @@ class Player(Entity):
         Entity.__init__(self, self.get_frame(), 1, 1, x, y, 0, True)
         self.mask = None
     
+    def teleport_to(self, x, y):
+        self.x = x
+        self.y = y
+    
     def handle_move(self, dx, dy):
         self.move( dx, dy)
         if self.is_colliding():
@@ -40,7 +44,7 @@ class Player(Entity):
         self.direction = "SE"
         self.action = "idle"
         self.vel = 0
-        self.x, self.y = config.world.midpoint
+        self.x, self.y = config.world.room.spawns[0]
         self.z = 0
 
     def update(self):
@@ -51,7 +55,7 @@ class Player(Entity):
         # if we arent falling or jumping, we assume we're running
         if not self.action == "jump" and not self.action == "fall":
             self.action = "run"
-            self.vel = 2
+            self.vel = 1
         
         # if we are pressing space, we jump
         if _input[pygame.K_SPACE] and self.action != "jump" and self.action != "fall":
@@ -118,11 +122,12 @@ class Player(Entity):
             self.animation_count = 0
         else:
             self.animation_count += 1
-        
-        print(self.z)
-        print(self.is_on_floor())
-        print(f'velocity: {self.vel}')
-        print(f'action: {self.action}')
+            
+        # if debug:
+        #     print(self.z)
+        #     print(self.is_on_floor())
+        #     print(f'velocity: {self.vel}')
+        #     print(f'action: {self.action}')
             
     def is_colliding(self):
         
@@ -131,7 +136,7 @@ class Player(Entity):
         collision_box.height = 16
         collision_box.center = collision_box.topleft
         
-        for entity in config.world.entities + config.world.tilemap.tiles:
+        for entity in config.game.world.room.entities + config.game.world.room.tiles:
             if entity.collides_with(collision_box) and entity.isSolid:
                 return True
         return False

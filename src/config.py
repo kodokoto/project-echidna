@@ -10,4 +10,4 @@ running = True
 dt = 0
 assets = None
 world = None
-debug = True
+debug = False

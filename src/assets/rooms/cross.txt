@@ -1,0 +1,5 @@
+none,none,bridge,none,none
+none,floor-lg,floor-lg,floor-lg,none
+bridge,floor-lg,floor-lg,floor-lg,bridge
+none,floor-lg,floor-lg,floor-lg,none
+none,none,bridge,none,none

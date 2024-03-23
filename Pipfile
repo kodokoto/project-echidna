@@ -5,8 +5,11 @@ name = "pypi"
 
 [packages]
 pygame = "*"
+numpy = "*"
 
 [dev-packages]
+networkx = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.11"

@@ -1,11 +1,13 @@
 import pygame
+from game import Game
 from graphics.Assets import Assets
 from graphics.World import World
 import config
 
 # pygame setup
 config.assets = Assets()
-config.world = World()
+config.assets.load_tile_maps()
+config.game = Game()
 
 while config.running:
     # poll for events
@@ -18,8 +20,10 @@ while config.running:
     config.screen.fill("black")
 
     # update() and render() your game objects
-    config.world.update()
-    config.world.render()
+    config.game.update()
+    config.game.render()
+    # config.world.update()
+    # config.world.render()
 
     # flip() the display to put your work on screen
     pygame.display.flip()

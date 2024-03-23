@@ -1,0 +1,50 @@
+empty
+N ['empty', 'spawn', 'dead-end-e', 'dead-end-n', 'dead-end-w', 'corner']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+spawn
+N ['straight', 'T', 'cross']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+dead-end-s
+N ['empty', 'spawn', 'dead-end-e', 'dead-end-n', 'dead-end-w', 'corner']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['dead-end-n', 'T', 'cross']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+dead-end-e
+N ['empty', 'spawn', 'dead-end-e', 'dead-end-n', 'dead-end-w', 'corner']
+E ['dead-end-w', 'cross']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+dead-end-n
+N ['dead-end-s', 'T', 'cross']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+dead-end-w
+N ['empty', 'spawn', 'dead-end-e', 'dead-end-n', 'dead-end-w', 'corner']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['dead-end-e', 'T', 'cross']
+straight
+N ['straight', 'T', 'cross']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['spawn', 'straight', 'corner', 'T', 'cross']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+corner
+N ['straight', 'T', 'cross']
+E ['empty', 'spawn', 'dead-end-s', 'dead-end-e', 'dead-end-n', 'straight', 'T']
+S ['empty', 'dead-end-s', 'dead-end-e', 'dead-end-w']
+W ['T', 'cross']
+T
+N ['dead-end-s', 'straight', 'T', 'cross']
+E ['dead-end-w', 'corner', 'cross']
+S ['spawn', 'dead-end-n', 'straight', 'corner', 'T', 'cross']
+W ['empty', 'spawn', 'dead-end-s', 'dead-end-n', 'dead-end-w', 'straight', 'corner']
+cross
+N ['dead-end-s', 'straight', 'T', 'cross']
+E ['dead-end-w', 'corner', 'cross']
+S ['spawn', 'dead-end-n', 'straight', 'corner', 'T', 'cross']
+W ['dead-end-e', 'T', 'cross']

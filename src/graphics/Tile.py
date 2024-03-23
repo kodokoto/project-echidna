@@ -12,6 +12,9 @@ class Tile(Visible):
         if debug:
             self.opaque = False
             
+    def flip(self):
+        self.surface = pygame.transform.flip(self.surface, True, False)
+            
     def get_isometric_coordinates(self):
         return coordinates.isometric_to_cartesian(self.x, self.y)
     

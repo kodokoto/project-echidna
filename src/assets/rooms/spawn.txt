@@ -1,4 +1,4 @@
-wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
+none,none,bridge,none,none
 wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
 wall-fwd-left,floor-lg,floor-lg,floor-lg,floor-lg
 wall-fwd-left,floor-lg,none,floor-lg,floor-lg
