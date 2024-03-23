@@ -17,6 +17,10 @@ class Player(Entity):
         Entity.__init__(self, self.get_frame(), 1, 1, x, y, 0, True)
         self.mask = None
     
+    def teleport_to(self, x, y):
+        self.x = x
+        self.y = y
+    
     def handle_move(self, dx, dy):
         self.move( dx, dy)
         if self.is_colliding():
@@ -132,7 +136,7 @@ class Player(Entity):
         collision_box.height = 16
         collision_box.center = collision_box.topleft
         
-        for entity in config.world.room.entities + config.world.room.tiles:
+        for entity in config.game.world.room.entities + config.game.world.room.tiles:
             if entity.collides_with(collision_box) and entity.isSolid:
                 return True
         return False

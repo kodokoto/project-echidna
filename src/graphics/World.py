@@ -1,24 +1,24 @@
 import math
-from entities.TestEntity import TestEntity
-from graphics.Assets import Assets
-from graphics.TileMap import TileMap
 from entities.Player import Player
-from rooms.Spawn import Spawn
+from graphics.WorldMap import WorldMap
+from systems.cardinal import get_opposite_direction
+
 class World:
 
     def __init__(self):
-        # self.tilemap = TileMap('src/assets/tilemap.txt')
-        # self.midpoint = ((Assets.ASSET_SIZE/2)*self.tilemap.width//2, (Assets.ASSET_SIZE/2)*self.tilemap.height//2)
-        self.room = Spawn(True)
-        print(self.room.spawns)
+        
+        self.map = WorldMap()
+        self.room = self.map.current_room()
+        # self.room = Spawn(True)
+        print([(d, r.name) for d, r in self.room.adj_rooms.items()])
         self.player = Player(*self.room.spawns[0])
-        # self.entities = [TestEntity(64, 32, 16)]
-        # self.origin = (self.tilemap.width * Assets.ASSET_SIZE, self.tilemap.height * Assets.ASSET_SIZE)
 
     def update(self):
         self.room.update()
         self.player.update()
-
+        # handle teleport collisions
+        # self.check_for_teleport_collision()
+            
     def render(self):
         sprites = []
         entities = self.room.entities.copy()
@@ -49,3 +49,16 @@ class World:
         
     def distance_from_origin(self, x, y):
         return math.sqrt((x - self.room.origin[0])**2 + (y - self.room.origin[1])**2)
+    
+    def check_for_teleport_collision(self):
+        for teleport in [e for e  in self.room.get_teleports()]:
+            if self.player.collides_with(teleport):
+                self.handle_teleport_collision(teleport)
+                break
+            
+    def handle_teleport_collision(self, teleport):
+        self.map.move_to_room_by_direction(teleport.direction)
+        self.room = self.map.current_room()
+        print(self.room)
+        n = self.room.get_teleport_by_direction(get_opposite_direction(teleport.direction))
+        self.player.teleport_to(n.x, n.y)

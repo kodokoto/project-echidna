@@ -43,4 +43,7 @@ class Visible(ABC, Sprite):
     def get_coordinates(self):
         return self.rect.x, self.rect.y
     
+    def get_center(self):
+        return self.rect.center
+    
     

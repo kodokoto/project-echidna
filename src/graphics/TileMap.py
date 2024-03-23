@@ -1,4 +1,4 @@
-from graphics.Assets import Assets
+import graphics.Assets
 from graphics.Tile import Tile
 import numpy as np
 
@@ -7,18 +7,18 @@ SOLID_TILES = [
 ]
 
 class TileMap:
-    def __init__(self, map_file, flip=False):
+    def __init__(self, map_file, rotate=0):
         self.map_file = map_file
         self.width = 0
         self.height = 0
-        self.flip = flip
+        self.rotate = rotate
         self.tiles = self.load_map()
 
     def load_map(self):
         _map = []
         parsed_map_file = self.parse_map_file()
         
-        if self.flip:
+        for _ in range(self.rotate):
             parsed_map_file = list(zip(*parsed_map_file[::-1]))
         
         for y, r in enumerate(parsed_map_file):
@@ -30,15 +30,15 @@ class TileMap:
                 if tile == 'none':
                     continue
                 
-                surface = Assets.tiles[tile]
+                surface = graphics.Assets.Assets.tiles[tile]
                 xPos = x*surface.get_width()/2
                 yPos = y*surface.get_height()/2
                 isSolid = True if tile in SOLID_TILES else False
                 
                 tile = Tile(surface, xPos, yPos, tile, isSolid)
                 
-                if self.flip:
-                    tile.flip()
+                if self.rotate:
+                    tile.rotate()
                     
                 row.append(tile)
             _map.append(row)

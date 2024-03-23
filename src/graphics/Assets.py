@@ -1,4 +1,5 @@
 import pygame
+from graphics.TileMap import TileMap
 from graphics.TileSet import TileSet
 import os
 
@@ -12,18 +13,40 @@ class Assets:
     player = {}
     
     test_object = None
+    tile_maps = {}
+    teleport = None
 
     def __init__(self):
         self.tileset = TileSet('src/assets/tileset.png', self.TILE_SIZE)
-        
         Assets.tiles = self.load_tiles()
         Assets.player = self.load_player_frames()
         Assets.test_object = self.load_test_object()
+        Assets.teleport = self.load_teleport()
         
     def load_test_object(self):
         tile = self.tileset.get_tile(self.TILE_SIZE, self.TILE_SIZE*6)
         return pygame.transform.scale(tile, (self.ASSET_SIZE, self.ASSET_SIZE))
+    
+    def load_teleport(self):
+        tile = self.tileset.get_tile(self.TILE_SIZE, self.TILE_SIZE*7)
+        return pygame.transform.scale(tile, (self.ASSET_SIZE, self.ASSET_SIZE))
+    
+    def load_tile_maps(self):
+        tile_maps = {}
         
+        tile_maps['spawn'] = TileMap('src/assets/rooms/spawn.txt')
+        tile_maps['dead-end-n'] = TileMap('src/assets/rooms/dead-end-n.txt')
+        tile_maps['dead-end-e'] = TileMap('src/assets/rooms/dead-end-e.txt')
+        tile_maps['dead-end-s'] = TileMap('src/assets/rooms/dead-end-s.txt')
+        tile_maps['dead-end-w'] = TileMap('src/assets/rooms/dead-end-w.txt')
+        
+        tile_maps['corner'] = TileMap('src/assets/rooms/corner.txt')
+        tile_maps['straight'] = TileMap('src/assets/rooms/straight.txt')
+        tile_maps['T'] = TileMap('src/assets/rooms/T.txt')
+        tile_maps['cross'] = TileMap('src/assets/rooms/cross.txt')
+        
+        Assets.tile_maps = tile_maps
+    
     def load_player_frames(self):
         
         actions = ["idle", "run E", "run N", "run NE", "run NW", "run SE"]

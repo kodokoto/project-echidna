@@ -1,6 +1,8 @@
 import random
 import sys 
 from enum import Enum
+from typing import Tuple
+from typing import Dict
 
 class Socket(Enum):
     EMPTY = 0
@@ -27,10 +29,10 @@ class Pattern:
         self.adj_lists = self.adj_lists
     
     def __repr__(self) -> str:
-        return self.name[:3]
+        return self.name
 
     def __str__(self) -> str:
-        return self.name[:3]
+        return self.name
 
 class Wave:
     def __init__(self, x, y, patterns):
@@ -54,7 +56,6 @@ class Wave:
         while choice.name.split('-')[0] == "dead" and len(self.patterns) > 1:
             choice = random.choices(self.patterns, weights=[pattern.weight for pattern in self.patterns])[0]
         self.patterns = [choice]
-        print(f"Collapsed wave at {self.x}, {self.y} to {self.patterns[0]}")
         return 1
     
     @property
@@ -76,7 +77,6 @@ class Wave:
     
     def constrain(self, pattern):
         self.patterns.remove(pattern)
-        print(f"removed pattern {pattern} at {self.x}, {self.y} to {self.patterns}")
         if len(self.patterns) == 1:
             self.collapse()
 
@@ -127,7 +127,8 @@ class WaveFunction:
     def collapse_wave(self, wave: Wave, pattern: Pattern = None):
         return wave.collapse(pattern)
     
-    def get_adjacent_waves(self, wave: Wave):
+    # returns list of tuples (str, Wave)
+    def get_adjacent_waves(self, wave: Wave) -> list[Tuple[str, Wave]]:
         x, y = wave.coords
         waves = []
         if x > 0:
@@ -161,7 +162,6 @@ class WaveFunction:
         self.iterate(self.get_wave((x, y)))
         while not self.is_fully_collapsed():
             self.iterate()
-        self.save_solution()
     
     def save_solution(self):
         with open("map.txt", "w") as f:
@@ -200,22 +200,16 @@ class WaveFunction:
             cur_tiles = current_wave.get_superposition()
             
             for d, other_wave in self.get_adjacent_waves(current_wave):
-                print(f"propagating {current_wave.get_superposition()} to {other_wave.coords} in direction {d}")
                 if other_wave.isCollapsed:
                     continue
                 other_tiles = other_wave.get_superposition()[:]
-                print(f"other tiles: {other_tiles}")
                 possible_neighbours = self.get_all_possible_neighbours(d, cur_tiles)
-                print(f"possible neighbours: {possible_neighbours}")
                 for tile in other_tiles:
-                    print(f'checking if {tile} is in {possible_neighbours}')
                     if tile not in possible_neighbours:
                         other_wave.constrain(tile)
                         if other_tiles not in stack:
-                            stack.append(other_wave)
-                            
-                self.print()
-                
+                            stack.append(other_wave)  
+                                
     def print(self):
         for y in range(self.size):
             for x in range(self.size):
@@ -235,18 +229,11 @@ def opposite_direction(direction):
         
 def generate_adjacency_lists(patterns):
     for pattern in patterns:
-        print(f"generating adjacency lists for {pattern}")
         for direction, sockets in pattern.sockets.items():
-            print("generating adjacency list for direction", direction)
-            print(f"looking for patterns with sockets {sockets} in direction {opposite_direction(direction)}")
             for other_pattern in patterns:
-                print(f"checking {other_pattern}")
                 for socket in sockets:
                     if  socket in other_pattern.sockets[opposite_direction(direction)]:
-                        print(f"pattern {other_pattern} has socket {socket} in direction {opposite_direction(direction)}")
-                        print(f'{other_pattern} already in {pattern.adj_lists[direction]}? : {not other_pattern not in pattern.adj_lists[direction]}')
                         if other_pattern not in pattern.adj_lists[direction]:
-                            print(f"adding {other_pattern} to {pattern.adj_lists[direction]}")
                             pattern.adj_lists[direction].append(other_pattern)
 
 patterns = [
@@ -356,9 +343,19 @@ def main():
 
     wf = WaveFunction(20, patterns)
     wf.solve()
-    
     sys.stdout.close()
     sys.stdout=stdoutOrigin
-
-main()
+    # find spawn
+    for x in range(wf.size):
+        for y in range(wf.size):
+            if wf.get_wave((x, y)).has_pattern(wf.get_pattern_by_name("spawn")):
+                w = wf.get_wave((x, y))
+                print(w.get_superposition()[0].adj_lists)
+                break
+        else:
+            continue
+        break
+    wf.save_solution()
     
+if __name__ == "__main__":
+    main()
